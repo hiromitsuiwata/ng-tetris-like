@@ -1,0 +1,9 @@
+<p>{{message}}</p>
+
+<div class="app-board">
+  <ng-template ngFor let-row [ngForOf]="board" let-y="index">
+    <ng-template ngFor let-block [ngForOf]="row" let-x="index">
+      <app-block [x]="block.x" [y]="block.y" [edgeColor]="block.edgeColor" [bgColor]="block.bgColor"></app-block>
+    </ng-template>
+  </ng-template>
+</div>
