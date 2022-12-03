@@ -13,7 +13,6 @@ export class BoardComponent {
   @HostListener('document:keydown',['$event'])
   handleKeyboardEvent(event: KeyboardEvent): void {
     event.preventDefault();
-    console.log(event.key);
     switch(event.key) {
       case 'ArrowLeft':
         this.tetromino.move(-1, 0, 0, this.board);
@@ -37,14 +36,16 @@ export class BoardComponent {
 
   width: number;
   height: number;
-  tetromino: Tetromino;
-
+  tetromino: Tetromino = new Tetromino(0);
   board: Block[][] = [];
+  gameOver: boolean = false;
+  score: number;
 
   constructor() {
-    this.message = "initial message";
+    this.message = "";
     this.width = 10;
     this.height = 20;
+    this.score = 0;
 
     for (let y = 0; y < this.height; y++) {
       const row = [];
@@ -54,7 +55,63 @@ export class BoardComponent {
       this.board.push(row);
     }
 
-    this.tetromino = new Tetromino(0);
+
+    this.tetromino = new Tetromino(this.getRandomKind());
     this.tetromino.put(4, 0, 0, this.board);
+    setInterval(() => {
+      if (this.gameOver) {
+        this.message = "GAME OVER";
+        return;
+      }
+
+      if (!this.tetromino.canMove(0, 1, this.board)) {
+        this.tetromino = new Tetromino(this.getRandomKind());
+        // 新しく置けなくなったらゲームオーバー
+        if (!this.tetromino.canPut(4, 0, 0, this.board)) {
+          this.gameOver = true;
+          return;
+        }
+        // そろっている行をクリアする
+        this.clearLine();
+        // 新しいブロックを置く
+        this.tetromino.put(4, 0, 0, this.board);
+      } else {
+        // 下に1マス移動する
+        this.tetromino.move(0, 1, 0, this.board);
+      }
+    }, 500);
+  }
+
+  private getRandomKind(): number {
+    return Math.trunc(Math.random() * 7);
+  }
+
+  /**
+   * そろっている行を消す
+   */
+  private clearLine() {
+    for (let y = 0; y < this.height; y++) {
+      let removable = true;
+      for (let x = 0; x < this.width; x++) {
+        if (!this.board[y][x].exists) {
+          removable = false;
+          break;
+        }
+      }
+      if (removable) {
+        for (let j = y; j >= 1; j--) {
+          for (let x = 0; x < this.width; x++) {
+            this.board[j][x].edgeColor = this.board[j - 1][x].edgeColor;
+            this.board[j][x].bgColor = this.board[j - 1][x].bgColor;
+            this.board[j][x].exists = this.board[j - 1][x].exists;
+          }
+        }
+        for (let x = 0; x < this.width; x++) {
+          this.board[0][x].resetColor();
+        }
+        this.score += 10;
+        y--;
+      }
+    }
   }
 }

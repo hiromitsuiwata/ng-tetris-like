@@ -1,5 +1,4 @@
 import { Block } from './block';
-import { Paint } from './paint';
 
 export class Tetromino {
 
@@ -55,13 +54,20 @@ export class Tetromino {
   }
 
   rotateShape(dr: number): number[][] {
-    console.log('dr', dr);
-    for (let i = 0; i < dr; i++) {
-      for (let [dx, dy] of this.shape) {
-        [dx, dy] = [dy, -dx];
+    const shape = this.shape.slice(0, this.shape.length);
+    let newShape = [];
+    if (dr) {
+      for (let [dx, dy] of shape) {
+        newShape.push([dy, -dx]);
       }
+    } else {
+      newShape = shape;
     }
-    return this.shape;
+    return newShape;
+  }
+
+  canMove(dx: number, dy: number, board: Block[][]): boolean {
+    return this.canPut(this.cx, this.cy + 1, 0, board);
   }
 
   canPut(x: number, y: number, dr: number, board: Block[][]): boolean {
@@ -79,7 +85,6 @@ export class Tetromino {
 
       // 他のブロックがすでにある場所には移動できない
       const exists = board[newY][newX].exists;
-      console.log('exists', exists);
       if (exists) {
         let includes = false;
         for (const selfBlock of newShape) {
@@ -90,12 +95,10 @@ export class Tetromino {
           }
         }
         if (!includes) {
-          console.log('cannot put');
           return false;
         }
       }
     }
-    console.log('can put');
     return true;
   }
 }
