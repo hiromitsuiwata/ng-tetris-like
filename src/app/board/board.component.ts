@@ -61,6 +61,7 @@ export class BoardComponent {
     setInterval(() => {
       if (this.gameOver) {
         this.message = "GAME OVER";
+        this.changeToGameOverColor();
         return;
       }
 
@@ -84,6 +85,14 @@ export class BoardComponent {
 
   private getRandomKind(): number {
     return Math.trunc(Math.random() * 7);
+  }
+
+  private changeToGameOverColor(): void {
+    for (let row of this.board) {
+      for (let block of row) {
+        block.gameOverColor();
+      }
+    }
   }
 
   /**

@@ -24,4 +24,11 @@ export class Block {
     this.bgColor = '#ccc';
     this.exists = false;
   }
+
+  gameOverColor() {
+    if (this.exists) {
+      this.edgeColor = "dimgray";
+      this.bgColor = "gray";
+    }
+  }
 }
