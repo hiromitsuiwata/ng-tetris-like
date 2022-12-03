@@ -1,0 +1,36 @@
+#left {
+  position: absolute;
+  left: 15px;
+  top: 525px;
+  width: 45px;
+  height: 45px;
+
+}
+#right {
+  position: absolute;
+  left: 100px;
+  top: 525px;
+  width: 45px;
+  height: 45px;
+}
+#down {
+  position: absolute;
+  left: 57px;
+  top: 570px;
+  width: 45px;
+  height: 45px;
+
+}
+#rotate-left {
+  position: absolute;
+  left: 300px;
+  top: 525px;
+  width: 45px;
+  height: 45px;
+
+}
+#message {
+  position: absolute;
+  top: 500px;
+  left: 120px;
+}

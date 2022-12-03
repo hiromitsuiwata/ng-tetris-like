@@ -1,5 +1,3 @@
-<p>score: {{score}} {{message}}</p>
-
 <div class="app-board">
   <ng-template ngFor let-row [ngForOf]="board" let-y="index">
     <ng-template ngFor let-block [ngForOf]="row" let-x="index">
@@ -7,3 +5,12 @@
     </ng-template>
   </ng-template>
 </div>
+
+<div id="message">score: {{score}} {{message}}</div>
+
+
+<button id="left" (pointerdown)="this.tetromino.move(-1, 0, 0, this.board);">←</button>
+<button id="right" (pointerdown)="this.tetromino.move(1, 0, 0, this.board);">→</button>
+<button id="down" (pointerdown)="this.tetromino.move(0, 1, 0, this.board);">↓</button>
+<button id="rotate-left" (pointerdown)="this.tetromino.move(0, 0, 1, this.board);">↶</button>
+

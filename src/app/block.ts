@@ -5,7 +5,7 @@ export class Block {
   bgColor: string;
   exists: boolean;
 
-  constructor(x: number, y: number, edgeColor: string = '#888', bgColor: string = '#ccc') {
+  constructor(x: number, y: number, edgeColor: string = '#c0c0c0', bgColor: string = '#dcdcdc') {
     this.x = x;
     this.y = y;
     this.edgeColor = edgeColor;
@@ -20,8 +20,8 @@ export class Block {
   }
 
   resetColor() {
-    this.edgeColor = '#888';
-    this.bgColor = '#ccc';
+    this.edgeColor = '#c0c0c0';
+    this.bgColor = '#dcdcdc';
     this.exists = false;
   }
 

@@ -7,13 +7,13 @@ export class Tetromino {
   cy: number;
   shape: number[][];
 
-  static SHAPES = [[[0, 0], [-1, 0], [1, 0], [2, 0]],
-                   [[0, 0], [1, 0], [0, 1], [1, 1]],
-                   [[0, 0], [-1, 1], [0, 1], [1, 1]],
-                   [[0, 0], [0, 1], [1, 1], [2, 1]],
-                   [[0, 0], [0, 1], [-1, 1], [-2, 1]],
-                   [[0, 0], [1, 0], [0, 1], [-1, 1]],
-                   [[0, 0], [-1, 0], [0, 1], [1, 1]]]
+  static SHAPES = [[[0, 0], [-1, 0], [1, 0], [2, 0]], // Straight
+                   [[0, 0], [1, 0], [0, 1], [1, 1]],  // Square
+                   [[0, 0], [-1, 0], [1, 0], [0, 1]], // T
+                   [[0, 0], [-1, 0], [1, 0], [1, 1]],  // J
+                   [[0, 0], [-1, 0], [-1, 1], [1, 0]], // L
+                   [[0, 0], [1, 0], [0, 1], [-1, 1]], // S
+                   [[0, 0], [-1, 0], [0, 1], [1, 1]]] // Z
 
   static EDGE_COLOR = ['darkturquoise', 'gold', 'darkviolet', 'darkblue', 'darkorange', 'darkgreen', 'crimson'];
   static BG_COLOR = ['turquoise', 'yellow', 'violet', 'blue', 'orange', 'green', 'red'];

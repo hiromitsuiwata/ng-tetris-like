@@ -22,8 +22,8 @@ export class BlockComponent {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.edgeColor = '#888';
-    this.bgColor = '#ccc';
+    this.edgeColor = '#c0c0c0';
+    this.bgColor = '#dcdcdc';
   }
 
   getbackgroundColor(): string {
@@ -33,9 +33,9 @@ export class BlockComponent {
     return `4px ridge ${this.edgeColor}`
   }
   getY(): string {
-    return `${this.y * 24 + 50}px`;
+    return `${this.y * 24 + 20}px`;
   }
   getX(): string {
-    return `${this.x * 24}px`;
+    return `${this.x * 24 + 60}px`;
   }
 }
