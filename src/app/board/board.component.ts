@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { Block } from '../block';
 import { Tetromino } from '../tetromino';
+
 
 @Component({
   selector: 'app-board',
@@ -9,11 +10,34 @@ import { Tetromino } from '../tetromino';
 })
 export class BoardComponent {
 
+  @HostListener('document:keydown',['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    event.preventDefault();
+    console.log(event.key);
+    switch(event.key) {
+      case 'ArrowLeft':
+        this.tetromino.move(-1, 0, 0, this.board);
+        break;
+      case 'ArrowRight':
+        this.tetromino.move(1, 0, 0, this.board);
+        break;
+      case 'ArrowUp':
+        this.tetromino.move(0, 0, 1, this.board);
+        break;
+      case 'ArrowDown':
+        this.tetromino.move(0, 1, 0, this.board);
+        break;
+      default:
+        break;
+    }
+  }
+
   @Input()
   message: string;
 
   width: number;
   height: number;
+  tetromino: Tetromino;
 
   board: Block[][] = [];
 
@@ -30,24 +54,7 @@ export class BoardComponent {
       this.board.push(row);
     }
 
-    this.putTetromino(5, 0, 0);
-    this.putTetromino(5, 2, 1);
-    this.putTetromino(5, 5, 2);
-    this.putTetromino(5, 8, 3);
-    this.putTetromino(5, 11, 4);
-    this.putTetromino(5, 14, 5);
-    this.putTetromino(5, 17, 6);
-
-  }
-
-  private putTetromino(x: number, y: number, kind: number, rotation: number = 0) {
-    const shape = Tetromino.SHAPES[kind];
-    for (const block of shape) {
-      this.setColor(x + block[0], y + block[1], kind);
-    }
-  }
-
-  private setColor(x: number, y: number, color: number) {
-    this.board[y][x].setColor(color);
+    this.tetromino = new Tetromino(0);
+    this.tetromino.put(4, 0, 0, this.board);
   }
 }
